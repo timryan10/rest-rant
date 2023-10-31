@@ -57,22 +57,28 @@ router.get('/:id', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  let place = places [req.params.id]
-  res.render('places/edit', {place})
+  let id = req.params.id
+    places[id] = req.body
+    places[id] = { ...places[id], ...req.body }
+    res.redirect(`/places/${id}`)
 })
 
 router.get('/:id/edit', (req, res) => {
   let id = Number(req.params.id)
   if (isNaN(id)) {
-      res.render('error404')
-  }
-  else if (!places[id]) {
-      res.render('error404')
-  }
-  else {
-    res.render('places/edit', { place: places[id] })
+      res.render('Error404')
+  } else if (!places[id]) {
+      res.render('Error404')
+  } else {
+      let place = places[req.params.id]
+      res.render('places/Edit', { 
+          place: place,
+          index: id
+      })
   }
 })
+
+
 
 router.post('/:id/edit', (req, res) => {
   res.send('Creat a rant about a particular place')
