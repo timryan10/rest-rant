@@ -61,6 +61,19 @@ router.put('/:id', (req, res) => {
   res.render('places/edit', {place})
 })
 
+router.get('/:id/edit', (req, res) => {
+  let id = Number(req.params.id)
+  if (isNaN(id)) {
+      res.render('error404')
+  }
+  else if (!places[id]) {
+      res.render('error404')
+  }
+  else {
+    res.render('places/edit', { place: places[id] })
+  }
+})
+
 router.post('/:id/edit', (req, res) => {
   res.send('Creat a rant about a particular place')
 })
