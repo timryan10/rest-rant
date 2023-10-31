@@ -5,23 +5,6 @@ router.get('/', (req, res) => {
     res.render('places/index', {places})
 })
 
-router.get('/new', (req, res) => {
-  res.render('places/new')
-})
-
-router.get('/:id', (req, res) => {
-  let id =  Number(req.params.id)
-  if (isNaN(id)) {
-    res.render('error404')
-  }
-  else if (!places[id]) {
-    res.render('error404')
-  }
-  else {
-    res.render('places/show', { place: places[id] })
-  }
-})
-
 router.post('/', (req, res) => {
   if (!req.body.pic) {
     req.body.pic = 'http://placekitten.com/400/400'
@@ -36,6 +19,54 @@ router.post('/', (req, res) => {
   }
   places.push(req.body)
   res.redirect('/places')
+})
+
+router.get('/new', (req, res) => {
+  res.render('places/new')
+})
+
+router.delete('/:id', (req, res) => {
+  let id =  Number(req.params.id)
+  if (isNaN(id)) {
+    res.render('error404')
+  }
+  else if (!places[id]) {
+    res.render('error404')
+  }
+  else {
+    places.splice(id, 1)
+    res.redirect('/places')
+  }
+})
+
+router.get('/:id', (req, res) => {
+  let id =  Number(req.params.id)
+  if (isNaN(id)) {
+    res.render('error404')
+  }
+  else if (!places[id]) {
+    res.render('error404')
+  }
+  else {
+    let place = places[req.params.id]
+    res.render('places/show', {
+      place: place,
+      index: id
+    })
+  }
+})
+
+router.put('/:id', (req, res) => {
+  let place = places [req.params.id]
+  res.render('places/edit', {place})
+})
+
+router.post('/:id/edit', (req, res) => {
+  res.send('Creat a rant about a particular place')
+})
+
+router.delete('/id/:rantId', (req, res) => {
+  res.send('Delete a rant about a particular place')
 })
 
 module.exports = router
