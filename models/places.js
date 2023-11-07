@@ -2,25 +2,15 @@ const mongoose = require('mongoose')
 
 const placeSchema = new mongoose.Schema({
   name: {type: String, required: true},
-  pic: String,
+  pic: { type: String, default: 'http://placekitten.com/350/350'},
   cuisines: {type: String, required: true},
   city: {type: String, default: 'Anytown'},
-  state: {type: String, default: 'Anytown'},
-  founded: Number
+  state: {type: String, default: 'USA'},
+  founded: {type: Number}
 })
 
-module.exports = [{
-    name: 'H-Thai-ML',
-    city: 'Seattle',
-    state: 'WA',
-    cuisines: 'Thai, Pan-Asian',
-    pic: '/images/restaurant-tables.jpg'
-  }, {
-    name: 'Coding Cat Cafe',
-    city: 'Phoenix',
-    state: 'AZ',
-    cuisines: 'Coffee, Bakery',
-    pic: '/images/coffee-pic.jpg'
-  }]
+placeSchema.methods.showEstablished = function (){
+  return `${this.name} has been service ${this.city}, ${this.state} since ${this.founded}.`
+}
 
   module.exports = mongoose.model('Place', placeSchema)

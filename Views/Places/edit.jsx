@@ -1,32 +1,32 @@
 const React = require('react')
 const Def = require('../default.jsx')
 
-function edit_form ({place, index}) {
+function edit_form (data) {
     return (
         <Def>
           <main>
             <h1>Edit Place</h1>
-            <form  method='POST' action={`/places/${index}?_method=PUT`}>
+            <form  method='POST' action={`/places/${data.index}?_method=PUT`}>
                     <div className='row'>
                         <div className='form-group col-sm-6'>
                             <label htmlFor='name' >Place Name</label>
-                            <input className='form-control' id='post-name' name='name' defaultValue={place.name} required />
+                            <input className='form-control' id='post-name' name='name' defaultValue={data.place.name} required />
                         </div>
                         <div className='form-group col-sm-6'>
                             <label htmlFor="pic">Place Picture</label>
-                            <input className='form-control' type="url" name="pic" id="post-pic" defaultValue={place.pic}/>
+                            <input className='form-control' type="url" name="pic" id="post-pic" defaultValue={data.place.pic}/>
                         </div>
                         <div className='form-group col-sm-6'>
                             <label htmlFor="city">City</label>
-                            <input className='form-control' name="city" id="post-city" defaultValue={place.city}/>
+                            <input className='form-control' name="city" id="post-city" defaultValue={data.place.city}/>
                         </div>
                         <div className='form-group col-sm-6'>
                             <label htmlFor="state">State</label>
-                            <input className='form-control' id='post-state' name='state' defaultValue={place.state}/>
+                            <input className='form-control' id='post-state' name='state' defaultValue={data.place.state}/>
                         </div>
                         <div className='form-group col-sm-6'>
                             <label htmlFor="cuisines">Cuisines</label>
-                            <input className='form-control' id='post-cuisines' name='cuisines' defaultValue={place.cuisines} required />
+                            <input className='form-control' id='post-cuisines' name='cuisines' defaultValue={data.place.cuisines} required />
                         </div>
                         <input className='btn btn-primary' type="submit" value='Add Place' />
                     </div>
