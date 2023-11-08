@@ -10,8 +10,8 @@ function show (data) {
         comments = data.place.comments.map (c => {
             return (
                 <div>
-                    <h2></h2>
-                    <h4></h4>
+                    <h2>{c.rant ? 'Rant! 🤬' : 'Rave! 😍'}</h2>
+                    <h4>{c.content} </h4>
                     <h3>
                         <strong>- {c.author} </strong>
                     </h3>
@@ -48,6 +48,34 @@ function show (data) {
                 <div className='comments-container'>
                     <h3>Comments</h3>
                     {comments}
+                    <form action={`/places/${data.place.id}/comment`} method='POST' className='border'>
+                        <div className='row'>
+                            <label htmlFor="content" key='content'>Comment</label>
+                            <input type="text" className='form-control' id='content' name='content' defaultValue='Rant or rave about a place here' />
+                        </div>
+                        <div>
+                            <label htmlFor="author" input='text' key='author'>Author</label>
+                            <input className='form-control' id='author' name='author'/>
+                        </div>
+                        <div>
+                            <label htmlFor="stars" key='stars'>Star Rating</label>
+                            <input type="range" min='1' max='5' defaultValue='3' step='.5' list='number' id='stars' name='stars' className='container-fluid' />
+                            <div>
+                                <datalist>
+                                    <option value="1" label='1'>1</option>
+                                    <option value="2" label='2'>2</option>
+                                    <option value="3" label='3'>3</option>
+                                    <option value="4" label='4'>4</option>
+                                    <option value="5" label='5'>5</option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="rant" key='rant'>Rant</label>
+                            <input type="checkbox" name='rant' id='rant' />
+                        </div>
+                        <button className='btn btn-primary' type='submit' value='submit'>Submit</button>
+                    </form>
                 </div>
                 <div className='button-container'>
                     <a href={`/places/${data.index}/edit`}><button className='btn btn-primary'>Edit</button></a>
